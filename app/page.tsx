@@ -5,9 +5,13 @@ export default async function Home() {
 
   return (
     <div className="w-[600px] m-auto">
-      <Suspense fallback={<p>Loading users...</p>}>
+      <section className="mb-8">
+        <h1 className="text-3xl font-bold">User Directory</h1>
+        <p className="mt-2 text-gray-600">
+          A simple SSR page built with Next.js, TypeScript and API integration.
+        </p>
         <UsersSection />
-      </Suspense>
+      </section>
     </div>
   );
 }
