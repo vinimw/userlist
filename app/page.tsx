@@ -1,19 +1,13 @@
-import { getUsers } from "@/app/services/users";
-import { Userslist } from "@/app/components/UsersList";
+import { UsersSection } from "@/app/components/UsersSection";
+import { Suspense } from "react";
 
 export default async function Home() {
-  const users = await getUsers();
-  const normalizeUsers = Array.isArray(users) ? users : [users];
 
   return (
-    <div>
-       <section className="mb-8">
-        <h1 className="text-3xl font-bold">User Directory</h1>
-        <p className="mt-2 text-gray-600">
-          A simple SSR page built with Next.js, TypeScript and API integration.
-        </p>
-      </section>
-      <Userslist users={normalizeUsers} />
+    <div className="w-[600px] m-auto">
+      <Suspense fallback={<p>Loading users...</p>}>
+        <UsersSection />
+      </Suspense>
     </div>
   );
 }
