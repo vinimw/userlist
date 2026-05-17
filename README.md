@@ -1,36 +1,115 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# User Directory
+
+A server-rendered user directory built with Next.js 16, React 19, TypeScript, Tailwind CSS 4, and Jest.
+
+The app fetches users from an external API, validates the response on the server, and renders a resilient UI with loading, empty, partial-error, and route-error states.
+
+## Tech Stack
+
+- Next.js 16.2.6 with the App Router
+- React 19.2.4
+- TypeScript 5
+- Tailwind CSS 4
+- Jest 30 and React Testing Library
+- ESLint 9 with Next.js Core Web Vitals rules
 
 ## Getting Started
 
-First, run the development server:
+Install dependencies:
+
+```bash
+npm install
+```
+
+Create a `.env` file with the API base URL:
+
+```bash
+API_URL=https://jsonplaceholder.typicode.com
+```
+
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Available Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run dev
+```
 
-## Learn More
+Starts the local development server.
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run build
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Creates a production build and runs TypeScript validation.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run start
+```
 
-## Deploy on Vercel
+Starts the production server after a successful build.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm run lint
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Runs ESLint.
+
+```bash
+npm test
+```
+
+Runs the Jest test suite.
+
+```bash
+npm run test:coverage
+```
+
+Runs tests and generates coverage reports.
+
+## Project Structure
+
+```text
+app/
+  components/       Reusable UI components and component tests
+  services/         Server-side data access and service tests
+  types/            Shared TypeScript domain types
+  error.tsx         Route error boundary
+  loading.tsx       Route loading skeleton
+  page.tsx          Home page
+```
+
+## Data Fetching
+
+User data is loaded in `app/services/users.ts` using the server-side `fetch` API. The request is revalidated every 60 seconds and tagged as `users`.
+
+The service returns an explicit result object:
+
+```ts
+{
+  users: User[];
+  error?: string;
+}
+```
+
+This keeps API failures, invalid payloads, and empty lists distinct in the UI.
+
+## Testing
+
+The test suite covers:
+
+- User card rendering and links
+- User list success, empty, and error states
+- User service validation, sanitization, API errors, and network failures
+
+Run all tests with:
+
+```bash
+npm test
+```
