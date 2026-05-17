@@ -1,11 +1,8 @@
 import { getUsers } from "@/app/services/users";
-import { Userslist } from "@/app/components/UsersList";
+import { UsersList } from "@/app/components/UsersList";
 
 export async function UsersSection() {
-	const users = await getUsers();
-	const normalizeUsers = Array.isArray(users) ? users : [users];
+  const { users, error } = await getUsers();
 
-	return(
-		<Userslist users={normalizeUsers} />
-	)
+  return <UsersList error={error} users={users} />;
 }

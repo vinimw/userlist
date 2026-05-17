@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Users list",
-  description: "",
+  title: "User Directory",
+  description: "Server-rendered user directory with resilient API integration.",
 };
 
 export default function RootLayout({
